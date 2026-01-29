@@ -34,38 +34,28 @@ class EnrollmentController extends Controller
      */
     public function create()
     {
-        /** @var \App\Models\User $user */
         $user = Auth::user();
-
-        // 1. Obtener datos del alumno
         $person = Person::where('user_id', $user->id)->firstOrFail();
-
-        // 2. Obtener periodo activo
         $period = AcademicPeriod::where('status', 'open')->first();
 
         if (!$period) {
-            return redirect()->route('dashboard')
-                ->with('error', 'No hay un proceso de matrícula activo en este momento.');
+            return redirect()->route('dashboard')->with('error', 'No hay un proceso de matrícula activo.');
         }
 
-        // 3. Obtener las Secciones Disponibles para SU Plan de Estudios
-        // (Aquí filtramos para que no vea cursos de otras carreras)
-        $availableSections = CourseSection::with('course')
-            ->where('academic_period_id', $period->id)
-            ->whereHas('course', function ($query) use ($person) {
-                // Asumimos que la persona tiene un plan asignado.
-                // Si importamos bien, debería tenerlo en su última matrícula o inferirlo.
-                // Por ahora, traemos TODO del periodo.
-                // En una V2 filtraremos por $person->study_plan_id
-            })
-            ->get()
-            ->groupBy('course.cycle'); // Agrupamos por ciclo (I, II, III...)
+        // Obtenemos los requisitos administrativos (Ficha, Pago, Biblioteca)
+        $requirements = $this->enrollmentService->checkAdministrativeRequirements($person, $period);
+
+        // Obtenemos los cursos con su lógica de malla (Colores y Estados)
+        $availableSections = $this->enrollmentService->getAvailableSectionsWithStatus($person, $period);
 
         return Inertia::render('Enrollment/Create', [
-            'availableSections' => $availableSections->flatten()->values(), //
+            'requirements' => $requirements,
+            'availableSections' => $availableSections,
+            'studentStudyPlanId' => $person->study_plan_id ?? 0,
             'currentPeriod' => $period->name,
             'currentPeriodId' => $period->id,
-            'studentStudyPlanId' => $person->study_plan_id ?? 0,
+            'student' => $person->names,
+            'sectionsByCycle' => $availableSections->groupBy('cycle'),
         ]);
     }
     /**

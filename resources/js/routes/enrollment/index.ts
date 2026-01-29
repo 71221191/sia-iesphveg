@@ -79,7 +79,7 @@ create.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     create.form = createForm
 /**
 * @see \App\Http\Controllers\EnrollmentController::store
- * @see app/Http/Controllers/EnrollmentController.php:74
+ * @see app/Http/Controllers/EnrollmentController.php:64
  * @route '/matricula'
  */
 export const store = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -94,7 +94,7 @@ store.definition = {
 
 /**
 * @see \App\Http\Controllers\EnrollmentController::store
- * @see app/Http/Controllers/EnrollmentController.php:74
+ * @see app/Http/Controllers/EnrollmentController.php:64
  * @route '/matricula'
  */
 store.url = (options?: RouteQueryOptions) => {
@@ -103,7 +103,7 @@ store.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\EnrollmentController::store
- * @see app/Http/Controllers/EnrollmentController.php:74
+ * @see app/Http/Controllers/EnrollmentController.php:64
  * @route '/matricula'
  */
 store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -113,7 +113,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
     /**
 * @see \App\Http\Controllers\EnrollmentController::store
- * @see app/Http/Controllers/EnrollmentController.php:74
+ * @see app/Http/Controllers/EnrollmentController.php:64
  * @route '/matricula'
  */
     const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -123,7 +123,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
             /**
 * @see \App\Http\Controllers\EnrollmentController::store
- * @see app/Http/Controllers/EnrollmentController.php:74
+ * @see app/Http/Controllers/EnrollmentController.php:64
  * @route '/matricula'
  */
         storeForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
