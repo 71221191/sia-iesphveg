@@ -19,6 +19,8 @@ use App\Http\Controllers\Admin\CourseSectionController;
 use App\Http\Controllers\DashboardController; // Este es el del alumno
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController; // Este es el del admin
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ReportController;
+
 
 // 1. RUTA DE BIENVENIDA (Landing Page)
 
@@ -89,6 +91,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('secciones-cursos', CourseSectionController::class)
             ->names('course_sections')
             ->parameters(['secciones-cursos' => 'courseSection']);
+
+        Route::get('/estudiantes/{personId}/certificado', [ReportController::class, 'downloadCertificate'])
+        ->name('students.certificate');
+        
     });
 
 });

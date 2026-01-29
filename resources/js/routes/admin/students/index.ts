@@ -174,9 +174,107 @@ show.head = (args: { id: string | number } | [id: string | number ] | string | n
         })
     
     show.form = showForm
+/**
+* @see \App\Http\Controllers\ReportController::certificate
+ * @see app/Http/Controllers/ReportController.php:22
+ * @route '/admin/estudiantes/{personId}/certificado'
+ */
+export const certificate = (args: { personId: string | number } | [personId: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: certificate.url(args, options),
+    method: 'get',
+})
+
+certificate.definition = {
+    methods: ["get","head"],
+    url: '/admin/estudiantes/{personId}/certificado',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+* @see \App\Http\Controllers\ReportController::certificate
+ * @see app/Http/Controllers/ReportController.php:22
+ * @route '/admin/estudiantes/{personId}/certificado'
+ */
+certificate.url = (args: { personId: string | number } | [personId: string | number ] | string | number, options?: RouteQueryOptions) => {
+    if (typeof args === 'string' || typeof args === 'number') {
+        args = { personId: args }
+    }
+
+    
+    if (Array.isArray(args)) {
+        args = {
+                    personId: args[0],
+                }
+    }
+
+    args = applyUrlDefaults(args)
+
+    const parsedArgs = {
+                        personId: args.personId,
+                }
+
+    return certificate.definition.url
+            .replace('{personId}', parsedArgs.personId.toString())
+            .replace(/\/+$/, '') + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\ReportController::certificate
+ * @see app/Http/Controllers/ReportController.php:22
+ * @route '/admin/estudiantes/{personId}/certificado'
+ */
+certificate.get = (args: { personId: string | number } | [personId: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: certificate.url(args, options),
+    method: 'get',
+})
+/**
+* @see \App\Http\Controllers\ReportController::certificate
+ * @see app/Http/Controllers/ReportController.php:22
+ * @route '/admin/estudiantes/{personId}/certificado'
+ */
+certificate.head = (args: { personId: string | number } | [personId: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: certificate.url(args, options),
+    method: 'head',
+})
+
+    /**
+* @see \App\Http\Controllers\ReportController::certificate
+ * @see app/Http/Controllers/ReportController.php:22
+ * @route '/admin/estudiantes/{personId}/certificado'
+ */
+    const certificateForm = (args: { personId: string | number } | [personId: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: certificate.url(args, options),
+        method: 'get',
+    })
+
+            /**
+* @see \App\Http\Controllers\ReportController::certificate
+ * @see app/Http/Controllers/ReportController.php:22
+ * @route '/admin/estudiantes/{personId}/certificado'
+ */
+        certificateForm.get = (args: { personId: string | number } | [personId: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: certificate.url(args, options),
+            method: 'get',
+        })
+            /**
+* @see \App\Http\Controllers\ReportController::certificate
+ * @see app/Http/Controllers/ReportController.php:22
+ * @route '/admin/estudiantes/{personId}/certificado'
+ */
+        certificateForm.head = (args: { personId: string | number } | [personId: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: certificate.url(args, {
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    certificate.form = certificateForm
 const students = {
     index: Object.assign(index, index),
 show: Object.assign(show, show),
+certificate: Object.assign(certificate, certificate),
 }
 
 export default students

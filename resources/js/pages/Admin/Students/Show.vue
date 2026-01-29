@@ -13,9 +13,33 @@ defineProps({ student: Object });
             <Link href="/admin/estudiantes" class="text-blue-600 mb-4 inline-block font-bold">← Volver al listado</Link>
 
             <div class="bg-white p-6 rounded-xl shadow-lg mb-8">
-                <h1 class="text-3xl font-bold text-gray-900">{{ student.last_name_p }} {{ student.last_name_m }}, {{ student.names }}</h1>
-                <p class="text-gray-500 text-lg">DNI: {{ student.dni }}</p>
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                    <!-- Información del Alumno -->
+                    <div>
+                        <h1 class="text-3xl font-bold text-gray-900">
+                            {{ student.last_name_p }} {{ student.last_name_m }}, {{ student.names }}
+                        </h1>
+                        <p class="text-gray-500 text-lg">DNI: {{ student.dni }}</p>
+                    </div>
+
+                    <!-- Botón de Descarga -->
+                    <div>
+                        <a
+                            :href="route('admin.students.certificate', student.id)"
+                            target="_blank"
+                            class="inline-flex items-center px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg shadow-md transition-all transform hover:scale-105 active:scale-95 text-sm uppercase tracking-wider"
+                        >
+                            <!-- Icono de PDF -->
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17h6M9 13h6"></path>
+                            </svg>
+                            Generar Certificado Oficial
+                        </a>
+                    </div>
+                </div>
             </div>
+
 
             <h2 class="text-xl font-bold mb-4 border-b-2 border-gray-300 pb-2">HISTORIAL ACADÉMICO IMPORTADO</h2>
 
