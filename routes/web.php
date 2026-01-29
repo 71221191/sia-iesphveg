@@ -16,7 +16,9 @@ use App\Http\Controllers\Admin\StudyProgramController;
 use App\Http\Controllers\Admin\StudyPlanController;
 use App\Http\Controllers\Admin\CourseController;
 use App\Http\Controllers\Admin\CourseSectionController;
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DashboardController; // Este es el del alumno
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController; // Este es el del admin
+use App\Http\Controllers\PaymentController;
 
 // 1. RUTA DE BIENVENIDA (Landing Page)
 
@@ -30,7 +32,9 @@ Route::get('/', function () {
 Route::middleware(['auth', 'verified'])->group(function () {
 
     // --- ZONA ALUMNO (Común) ---
-
+    // Rutas para el alumno
+    Route::get('/mis-pagos', [PaymentController::class, 'index'])->name('payments.index');
+    Route::post('/mis-pagos', [PaymentController::class, 'store'])->name('payments.store');
     // Ficha Socioeconómica (El Cerrojo)
     Route::get('/ficha-socioeconomica', [SocioeconomicController::class, 'create'])->name('socioeconomic.create');
     Route::post('/ficha-socioeconomica', [SocioeconomicController::class, 'store'])->name('socioeconomic.store');
@@ -50,14 +54,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         // 1. Dashboard Admin
         Route::get('/dashboard', function () {
-            return Inertia::render('Admin/Dashboard'); 
+            return Inertia::render('Admin/Dashboard');
         })->name('dashboard');
 
         // 2. Gestión de Estudiantes
         Route::get('/estudiantes', [StudentController::class, 'index'])->name('students.index');
         Route::get('/estudiantes/{id}', [StudentController::class, 'show'])->name('students.show');
 
-        // 3. MANTENEDORES (CRUDs Optimizados) 
+        // 3. MANTENEDORES (CRUDs Optimizados)
         // Usamos 'parameters' para mantener compatibilidad con tus variables {academicPeriod}, etc.
 
         // Periodos

@@ -2,7 +2,7 @@
 import NavFooter from '@/components/NavFooter.vue';
 import NavMain from '@/components/NavMain.vue';
 import NavUser from '@/components/NavUser.vue';
-import { computed } from 'vue'; 
+import { computed } from 'vue';
 import {
     Sidebar,
     SidebarContent,
@@ -85,6 +85,11 @@ const studentNavItems: NavItem[] = [
         title: 'Ficha Socioeconómica',
         href: '/ficha-socioeconomica',
         icon: Folder,
+    },
+    {
+        title: 'Mis Pagos / Tesorería', // <-- Añadimos este
+        href: '/mis-pagos',
+        icon: BookOpen, // O cualquier icono que te guste
     },
     {
         title: 'Matrícula',
