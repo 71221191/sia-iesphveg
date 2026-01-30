@@ -20,6 +20,7 @@ use App\Http\Controllers\DashboardController; // Este es el del alumno
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController; // Este es el del admin
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\TreasuryController;
 
 
 // 1. RUTA DE BIENVENIDA (Landing Page)
@@ -94,7 +95,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::get('/estudiantes/{personId}/certificado', [ReportController::class, 'downloadCertificate'])
         ->name('students.certificate');
-        
+
+    });
+
+    // Solo Tesorería y Admin pueden entrar aquí
+    Route::middleware(['auth', 'role:tesoreria|admin'])
+        ->prefix('tesoreria')
+        ->name('tesoreria.')
+        ->group(function () {
+
+            // Listado principal
+            Route::get('/validar-pagos', [TreasuryController::class, 'index'])->name('payments.index');
+
+            // Acción de aprobar/rechazar
+            Route::patch('/pagos/{payment}/verify', [TreasuryController::class, 'verify'])->name('payments.verify');
     });
 
 });

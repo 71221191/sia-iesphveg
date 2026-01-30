@@ -77,9 +77,22 @@ const getStatusClass = (status) => {
                         <td class="p-4 text-sm font-mono font-bold">{{ payment.operation_number }}</td>
                         <td class="p-4 text-sm">S/. {{ payment.amount }}</td>
                         <td class="p-4">
-                            <span :class="getStatusClass(payment.status)" class="px-3 py-1 rounded-full text-xs font-bold uppercase">
+                            <span :class="getStatusClass(payment.status)"
+                                class="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest border">
                                 {{ payment.status === 'pending' ? 'Pendiente' : (payment.status === 'approved' ? 'Aprobado' : 'Rechazado') }}
                             </span>
+
+                            <!-- MOTIVO DE RECHAZO (El toque profesional) -->
+                            <div v-if="payment.status === 'rejected' && payment.rejection_reason"
+                                class="mt-2 p-2 bg-red-50 border border-red-100 rounded-lg text-[11px] text-red-700 leading-tight">
+                                <strong class="block uppercase mb-1">Motivo del rechazo:</strong>
+                                {{ payment.rejection_reason }}
+                                <p class="mt-1 font-bold italic underline">Por favor, vuelve a subir el comprobante corregido.</p>
+                            </div>
+
+                            <div v-if="payment.status === 'approved'" class="mt-1 text-[10px] text-green-600 font-bold italic">
+                                ¡Pago validado!.
+                            </div>
                         </td>
                     </tr>
                 </tbody>

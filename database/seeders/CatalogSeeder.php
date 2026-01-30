@@ -21,6 +21,9 @@ class CatalogSeeder extends Seeder
             'is_active' => true,
         ]);
 
+
+        
+
         // 1. TIPOS DE DOCUMENTO
         DB::table('identity_document_types')->insertOrIgnore([
             ['id' => 1, 'name' => 'DNI', 'short_name' => 'DNI', 'created_at' => $now, 'updated_at' => $now],

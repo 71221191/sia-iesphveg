@@ -15,7 +15,7 @@ import {
 import { dashboard } from '@/routes';
 import { type NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/vue3';
-import { BookOpen, Folder, LayoutGrid } from 'lucide-vue-next';
+import { BookOpen, Folder, LayoutGrid, ReceiptText } from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
 
 // Importación de rutas (Asegúrate de que estos archivos existan en tu proyecto)
@@ -33,12 +33,18 @@ const user = computed(() => page.props.auth.user);
 
 // 2. Computed para verificar roles
 const isAdmin = computed(() => {
-    // Usamos .value porque 'user' es computed
-    return user.value?.roles?.includes('admin');
+    const roles = user.value?.roles as string[] | undefined;
+    return Array.isArray(roles) && roles.includes('admin');
 });
 
 const isStudent = computed(() => {
-    return user.value?.roles?.includes('estudiante');
+    const roles = user.value?.roles as string[] | undefined;
+    return Array.isArray(roles) && roles.includes('estudiante');
+});
+
+const isTreasury = computed(() => {
+    const roles = user.value?.roles as string[] | undefined;
+    return Array.isArray(roles) && roles.includes('tesoreria');
 });
 
 // 3. Menús Estáticos
@@ -98,6 +104,16 @@ const studentNavItems: NavItem[] = [
     },
 ];
 
+const treasuryNavItems = [
+    {
+        title: 'Validar Pagos',
+        href: '/tesoreria/validar-pagos', // La ruta que creamos en web.php
+        icon: LayoutGrid, // Puedes usar ReceiptText si lo importaste
+    },
+];
+
+
+
 // 4. Menú Principal Dinámico
 const mainNavItems = computed(() => {
     const items: NavItem[] = [
@@ -115,6 +131,10 @@ const mainNavItems = computed(() => {
 
     if (isStudent.value) {
         items.push(...studentNavItems);
+    }
+
+    if (isTreasury.value) {
+        items.push(...treasuryNavItems);
     }
 
     return items;
