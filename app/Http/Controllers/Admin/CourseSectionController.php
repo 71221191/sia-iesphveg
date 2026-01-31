@@ -51,13 +51,20 @@ class CourseSectionController extends Controller
         Log::info('[CourseSectionController@create] Primeros 5 cursos antes de mapear: ' . json_encode($courses->take(5))); // <-- NUEVO LOG
 
         $academicPeriods = AcademicPeriod::orderBy('start_date', 'desc')->get(['id', 'name', 'status']);
-        $teachers = User::role('docente')->with('person')->orderBy('username')->get(['id', 'username']);
-        $teachers = $teachers->map(function ($teacher) {
+
+        // 1. Buscamos los usuarios con rol docente y cargamos su relación 'person'
+        $teachers = User::role('docente')->with('person')->get();
+
+        // 2. Mapeamos la colección
+        $teachers = $teachers->map(function ($userDocente) {
+            // IMPORTANTE: Si el usuario no tiene una persona vinculada, lo saltamos para evitar errores
+            if (!$userDocente->person) return null;
+
             return [
-                'id' => $teacher->id,
-                'name' => $teacher->person->full_name ?? $teacher->name,
+                'id' => $userDocente->person->id, // <--- LA CLAVE: Mandamos el ID de la tabla PEOPLE (2578)
+                'name' => $userDocente->person->full_name ?? $userDocente->username,
             ];
-        });
+        })->filter()->values(); // Limpiamos los nulos si los hubiera
 
         return Inertia::render('Admin/CourseSections/Create', [
             'studyPrograms' => $studyPrograms,
@@ -128,13 +135,20 @@ class CourseSectionController extends Controller
         Log::info('[CourseSectionController@edit] Primeros 5 cursos antes de mapear: ' . json_encode($courses->take(5))); // <-- NUEVO LOG
 
         $academicPeriods = AcademicPeriod::orderBy('start_date', 'desc')->get(['id', 'name', 'status']);
-        $teachers = User::role('docente')->with('person')->orderBy('username')->get(['id', 'username']);
-        $teachers = $teachers->map(function ($teacher) {
+
+        // 1. Buscamos los usuarios con rol docente y cargamos su relación 'person'
+        $teachers = User::role('docente')->with('person')->get();
+
+        // 2. Mapeamos la colección
+        $teachers = $teachers->map(function ($userDocente) {
+            // IMPORTANTE: Si el usuario no tiene una persona vinculada, lo saltamos para evitar errores
+            if (!$userDocente->person) return null;
+
             return [
-                'id' => $teacher->id,
-                'name' => $teacher->person->full_name ?? $teacher->name,
+                'id' => $userDocente->person->id, // <--- LA CLAVE: Mandamos el ID de la tabla PEOPLE (2578)
+                'name' => $userDocente->person->full_name ?? $userDocente->username,
             ];
-        });
+        })->filter()->values(); // Limpiamos los nulos si los hubiera
 
         return Inertia::render('Admin/CourseSections/Edit', [
             'courseSection' => $courseSection,

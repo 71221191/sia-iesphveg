@@ -5,16 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\CourseSection;
-class Competency extends Model
-{
-    use HasFactory;
-
-    protected $fillable = [
-        'name',
-        'description',
-        // otros campos que uses
-    ];
-}
 
 class Course extends Model
 {
@@ -64,8 +54,8 @@ class Course extends Model
 
     public function competencies()
     {
-        return $this->belongsToMany(Competency::class, 'course_competencies')
-                    ->withPivot('weight')
-                    ->withTimestamps();
+        return $this->belongsToMany(Competency::class, 'course_competency')
+                    ->withPivot('weight');
+
     }
 }

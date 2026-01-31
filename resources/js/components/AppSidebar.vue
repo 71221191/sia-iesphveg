@@ -25,6 +25,7 @@ import study_programs from '@/routes/admin/study_programs';
 import study_plans from '@/routes/admin/study_plans';
 import courses from '@/routes/admin/courses';
 import course_sections from '@/routes/admin/course_sections';
+import { route } from 'ziggy-js';
 
 const page = usePage();
 
@@ -45,6 +46,11 @@ const isStudent = computed(() => {
 const isTreasury = computed(() => {
     const roles = user.value?.roles as string[] | undefined;
     return Array.isArray(roles) && roles.includes('tesoreria');
+});
+
+const isTeacher = computed(() => {
+    const roles = user.value?.roles as string[] | undefined;
+    return Array.isArray(roles) && roles.includes('docente');
 });
 
 // 3. Menús Estáticos
@@ -84,6 +90,11 @@ const adminNavItems: NavItem[] = [
         href: course_sections.index().url,
         icon: Folder,
     },
+    {
+        title: 'Catálogo de Competencias',
+        href: '/admin/competencias', // Definiremos esta ruta ahora
+        icon: BookOpen, // Usa un icono de catálogo o libro
+    },
 ];
 
 const studentNavItems: NavItem[] = [
@@ -112,6 +123,13 @@ const treasuryNavItems = [
     },
 ];
 
+const teacherNavItems = [
+    {
+        title: 'Mis Cursos y Notas',
+        href: route('teacher.sections.index'),
+        icon: BookOpen,
+    },
+];
 
 
 // 4. Menú Principal Dinámico
@@ -135,6 +153,10 @@ const mainNavItems = computed(() => {
 
     if (isTreasury.value) {
         items.push(...treasuryNavItems);
+    }
+
+    if (isTeacher.value) {
+        items.push(...teacherNavItems);
     }
 
     return items;

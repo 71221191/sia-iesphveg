@@ -30,6 +30,6 @@ class User extends Authenticatable
     // Relación con la tabla People (RF-03.1)
     public function person()
     {
-        return $this->hasOne(Person::class);
+        return $this->hasOne(Person::class, 'user_id');
     }
 }

@@ -2,6 +2,7 @@
 import AppLayout from '@/layouts/AppLayout.vue';
 import { Head, usePage } from '@inertiajs/vue3';
 import { ref, computed } from 'vue'; // Asegúrate de importar ref y computed si los usas para algo más
+import { route } from 'ziggy-js';
 
 
 // --- FUNCIÓN DE CONVERSIÓN ARÁBIGOS A ROMANOS ---
@@ -36,6 +37,7 @@ const { auth, student_info } = usePage().props;
                 Panel Académico - IESP HVEG
             </h2>
         </template>
+
 
         <div class="py-12 bg-gray-100 min-h-screen">
             <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">

@@ -157,7 +157,7 @@ create.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     create.form = createForm
 /**
 * @see \App\Http\Controllers\Admin\CourseSectionController::store
- * @see app/Http/Controllers/Admin/CourseSectionController.php:87
+ * @see app/Http/Controllers/Admin/CourseSectionController.php:94
  * @route '/admin/secciones-cursos'
  */
 export const store = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -172,7 +172,7 @@ store.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\CourseSectionController::store
- * @see app/Http/Controllers/Admin/CourseSectionController.php:87
+ * @see app/Http/Controllers/Admin/CourseSectionController.php:94
  * @route '/admin/secciones-cursos'
  */
 store.url = (options?: RouteQueryOptions) => {
@@ -181,7 +181,7 @@ store.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Admin\CourseSectionController::store
- * @see app/Http/Controllers/Admin/CourseSectionController.php:87
+ * @see app/Http/Controllers/Admin/CourseSectionController.php:94
  * @route '/admin/secciones-cursos'
  */
 store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -191,7 +191,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
     /**
 * @see \App\Http\Controllers\Admin\CourseSectionController::store
- * @see app/Http/Controllers/Admin/CourseSectionController.php:87
+ * @see app/Http/Controllers/Admin/CourseSectionController.php:94
  * @route '/admin/secciones-cursos'
  */
     const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -201,7 +201,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
             /**
 * @see \App\Http\Controllers\Admin\CourseSectionController::store
- * @see app/Http/Controllers/Admin/CourseSectionController.php:87
+ * @see app/Http/Controllers/Admin/CourseSectionController.php:94
  * @route '/admin/secciones-cursos'
  */
         storeForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -309,7 +309,7 @@ show.head = (args: { courseSection: string | number } | [courseSection: string |
     show.form = showForm
 /**
 * @see \App\Http\Controllers\Admin\CourseSectionController::edit
- * @see app/Http/Controllers/Admin/CourseSectionController.php:117
+ * @see app/Http/Controllers/Admin/CourseSectionController.php:124
  * @route '/admin/secciones-cursos/{courseSection}/edit'
  */
 export const edit = (args: { courseSection: number | { id: number } } | [courseSection: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -324,7 +324,7 @@ edit.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\CourseSectionController::edit
- * @see app/Http/Controllers/Admin/CourseSectionController.php:117
+ * @see app/Http/Controllers/Admin/CourseSectionController.php:124
  * @route '/admin/secciones-cursos/{courseSection}/edit'
  */
 edit.url = (args: { courseSection: number | { id: number } } | [courseSection: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -357,7 +357,7 @@ edit.url = (args: { courseSection: number | { id: number } } | [courseSection: n
 
 /**
 * @see \App\Http\Controllers\Admin\CourseSectionController::edit
- * @see app/Http/Controllers/Admin/CourseSectionController.php:117
+ * @see app/Http/Controllers/Admin/CourseSectionController.php:124
  * @route '/admin/secciones-cursos/{courseSection}/edit'
  */
 edit.get = (args: { courseSection: number | { id: number } } | [courseSection: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -366,7 +366,7 @@ edit.get = (args: { courseSection: number | { id: number } } | [courseSection: n
 })
 /**
 * @see \App\Http\Controllers\Admin\CourseSectionController::edit
- * @see app/Http/Controllers/Admin/CourseSectionController.php:117
+ * @see app/Http/Controllers/Admin/CourseSectionController.php:124
  * @route '/admin/secciones-cursos/{courseSection}/edit'
  */
 edit.head = (args: { courseSection: number | { id: number } } | [courseSection: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -376,7 +376,7 @@ edit.head = (args: { courseSection: number | { id: number } } | [courseSection: 
 
     /**
 * @see \App\Http\Controllers\Admin\CourseSectionController::edit
- * @see app/Http/Controllers/Admin/CourseSectionController.php:117
+ * @see app/Http/Controllers/Admin/CourseSectionController.php:124
  * @route '/admin/secciones-cursos/{courseSection}/edit'
  */
     const editForm = (args: { courseSection: number | { id: number } } | [courseSection: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -386,7 +386,7 @@ edit.head = (args: { courseSection: number | { id: number } } | [courseSection: 
 
             /**
 * @see \App\Http\Controllers\Admin\CourseSectionController::edit
- * @see app/Http/Controllers/Admin/CourseSectionController.php:117
+ * @see app/Http/Controllers/Admin/CourseSectionController.php:124
  * @route '/admin/secciones-cursos/{courseSection}/edit'
  */
         editForm.get = (args: { courseSection: number | { id: number } } | [courseSection: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -395,7 +395,7 @@ edit.head = (args: { courseSection: number | { id: number } } | [courseSection: 
         })
             /**
 * @see \App\Http\Controllers\Admin\CourseSectionController::edit
- * @see app/Http/Controllers/Admin/CourseSectionController.php:117
+ * @see app/Http/Controllers/Admin/CourseSectionController.php:124
  * @route '/admin/secciones-cursos/{courseSection}/edit'
  */
         editForm.head = (args: { courseSection: number | { id: number } } | [courseSection: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -411,7 +411,7 @@ edit.head = (args: { courseSection: number | { id: number } } | [courseSection: 
     edit.form = editForm
 /**
 * @see \App\Http\Controllers\Admin\CourseSectionController::update
- * @see app/Http/Controllers/Admin/CourseSectionController.php:165
+ * @see app/Http/Controllers/Admin/CourseSectionController.php:179
  * @route '/admin/secciones-cursos/{courseSection}'
  */
 export const update = (args: { courseSection: number | { id: number } } | [courseSection: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -426,7 +426,7 @@ update.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\CourseSectionController::update
- * @see app/Http/Controllers/Admin/CourseSectionController.php:165
+ * @see app/Http/Controllers/Admin/CourseSectionController.php:179
  * @route '/admin/secciones-cursos/{courseSection}'
  */
 update.url = (args: { courseSection: number | { id: number } } | [courseSection: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -459,7 +459,7 @@ update.url = (args: { courseSection: number | { id: number } } | [courseSection:
 
 /**
 * @see \App\Http\Controllers\Admin\CourseSectionController::update
- * @see app/Http/Controllers/Admin/CourseSectionController.php:165
+ * @see app/Http/Controllers/Admin/CourseSectionController.php:179
  * @route '/admin/secciones-cursos/{courseSection}'
  */
 update.put = (args: { courseSection: number | { id: number } } | [courseSection: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -468,7 +468,7 @@ update.put = (args: { courseSection: number | { id: number } } | [courseSection:
 })
 /**
 * @see \App\Http\Controllers\Admin\CourseSectionController::update
- * @see app/Http/Controllers/Admin/CourseSectionController.php:165
+ * @see app/Http/Controllers/Admin/CourseSectionController.php:179
  * @route '/admin/secciones-cursos/{courseSection}'
  */
 update.patch = (args: { courseSection: number | { id: number } } | [courseSection: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
@@ -478,7 +478,7 @@ update.patch = (args: { courseSection: number | { id: number } } | [courseSectio
 
     /**
 * @see \App\Http\Controllers\Admin\CourseSectionController::update
- * @see app/Http/Controllers/Admin/CourseSectionController.php:165
+ * @see app/Http/Controllers/Admin/CourseSectionController.php:179
  * @route '/admin/secciones-cursos/{courseSection}'
  */
     const updateForm = (args: { courseSection: number | { id: number } } | [courseSection: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -493,7 +493,7 @@ update.patch = (args: { courseSection: number | { id: number } } | [courseSectio
 
             /**
 * @see \App\Http\Controllers\Admin\CourseSectionController::update
- * @see app/Http/Controllers/Admin/CourseSectionController.php:165
+ * @see app/Http/Controllers/Admin/CourseSectionController.php:179
  * @route '/admin/secciones-cursos/{courseSection}'
  */
         updateForm.put = (args: { courseSection: number | { id: number } } | [courseSection: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -507,7 +507,7 @@ update.patch = (args: { courseSection: number | { id: number } } | [courseSectio
         })
             /**
 * @see \App\Http\Controllers\Admin\CourseSectionController::update
- * @see app/Http/Controllers/Admin/CourseSectionController.php:165
+ * @see app/Http/Controllers/Admin/CourseSectionController.php:179
  * @route '/admin/secciones-cursos/{courseSection}'
  */
         updateForm.patch = (args: { courseSection: number | { id: number } } | [courseSection: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -523,7 +523,7 @@ update.patch = (args: { courseSection: number | { id: number } } | [courseSectio
     update.form = updateForm
 /**
 * @see \App\Http\Controllers\Admin\CourseSectionController::destroy
- * @see app/Http/Controllers/Admin/CourseSectionController.php:198
+ * @see app/Http/Controllers/Admin/CourseSectionController.php:212
  * @route '/admin/secciones-cursos/{courseSection}'
  */
 export const destroy = (args: { courseSection: number | { id: number } } | [courseSection: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -538,7 +538,7 @@ destroy.definition = {
 
 /**
 * @see \App\Http\Controllers\Admin\CourseSectionController::destroy
- * @see app/Http/Controllers/Admin/CourseSectionController.php:198
+ * @see app/Http/Controllers/Admin/CourseSectionController.php:212
  * @route '/admin/secciones-cursos/{courseSection}'
  */
 destroy.url = (args: { courseSection: number | { id: number } } | [courseSection: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -571,7 +571,7 @@ destroy.url = (args: { courseSection: number | { id: number } } | [courseSection
 
 /**
 * @see \App\Http\Controllers\Admin\CourseSectionController::destroy
- * @see app/Http/Controllers/Admin/CourseSectionController.php:198
+ * @see app/Http/Controllers/Admin/CourseSectionController.php:212
  * @route '/admin/secciones-cursos/{courseSection}'
  */
 destroy.delete = (args: { courseSection: number | { id: number } } | [courseSection: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -581,7 +581,7 @@ destroy.delete = (args: { courseSection: number | { id: number } } | [courseSect
 
     /**
 * @see \App\Http\Controllers\Admin\CourseSectionController::destroy
- * @see app/Http/Controllers/Admin/CourseSectionController.php:198
+ * @see app/Http/Controllers/Admin/CourseSectionController.php:212
  * @route '/admin/secciones-cursos/{courseSection}'
  */
     const destroyForm = (args: { courseSection: number | { id: number } } | [courseSection: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -596,7 +596,7 @@ destroy.delete = (args: { courseSection: number | { id: number } } | [courseSect
 
             /**
 * @see \App\Http\Controllers\Admin\CourseSectionController::destroy
- * @see app/Http/Controllers/Admin/CourseSectionController.php:198
+ * @see app/Http/Controllers/Admin/CourseSectionController.php:212
  * @route '/admin/secciones-cursos/{courseSection}'
  */
         destroyForm.delete = (args: { courseSection: number | { id: number } } | [courseSection: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({

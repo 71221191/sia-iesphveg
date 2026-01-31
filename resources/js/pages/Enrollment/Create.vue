@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import { Head, useForm } from '@inertiajs/vue3';
-import { CheckCircle2, ChevronRight, ChevronLeft, BookOpen, UserCircle, AlertCircle } from 'lucide-vue-next'; // Agrega BookOpen y UserCircle
+import { Users, CheckCircle2, ChevronRight, ChevronLeft, BookOpen, UserCircle, AlertCircle, Lock } from 'lucide-vue-next'; // Agrega BookOpen y UserCircle
 import { route } from 'ziggy-js';
+
 
 const props = defineProps<{
     requirements: {
@@ -20,7 +21,7 @@ const props = defineProps<{
 
 // Formulario para las selecciones de matrícula
 const form = useForm({
-    selected_sections: [] as number[], // IDs de las secciones que el alumno selecciona
+    sections: [] as number[], // IDs de las secciones que el alumno selecciona
     academic_period_id: props.currentPeriodId, // Usamos el ID real aquí
 });
 
@@ -178,7 +179,7 @@ const sectionsByCycle = computed(() => {
                                             <input v-if="section.status === 'available'"
                                                 type="checkbox"
                                                 :value="section.id"
-                                                v-model="form.selected_sections"
+                                                v-model="form.sections"
                                                 class="form-checkbox h-5 w-5 text-blue-600 rounded cursor-pointer">
 
                                             <!-- Si ya lo pasó, mostramos un check verde -->
@@ -242,10 +243,10 @@ const sectionsByCycle = computed(() => {
                     <div class="mt-10 flex justify-end items-center pt-6 border-t border-gray-100">
                         <button
                             type="submit"
-                            :disabled="form.processing || form.selected_sections.length === 0 || !requirements.can_enroll"
+                            :disabled="form.processing || form.sections.length === 0 || !requirements.can_enroll"
                             :class="{
-                                'bg-blue-600 hover:bg-blue-700 text-white shadow-blue-200': !form.processing && form.selected_sections.length > 0 && requirements.can_enroll,
-                                'bg-gray-300 text-gray-500 cursor-not-allowed shadow-none scale-100': form.processing || form.selected_sections.length === 0 || !requirements.can_enroll
+                                'bg-blue-600 hover:bg-blue-700 text-white shadow-blue-200': !form.processing && form.sections.length > 0 && requirements.can_enroll,
+                                'bg-gray-300 text-gray-500 cursor-not-allowed shadow-none scale-100': form.processing || form.sections.length === 0 || !requirements.can_enroll
                             }"
                             class="flex items-center px-8 py-3 rounded-xl font-bold shadow-lg transition-all transform hover:scale-105"
                         >

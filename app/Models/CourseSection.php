@@ -43,6 +43,7 @@ class CourseSection extends Model
 
     public function enrollmentDetails()
     {
-        return $this->hasMany(EnrollmentDetail::class);
+        // Una sección tiene muchos alumnos matriculados
+        return $this->hasMany(EnrollmentDetail::class, 'course_section_id');
     }
 }

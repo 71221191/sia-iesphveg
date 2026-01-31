@@ -21,4 +21,15 @@ class EnrollmentDetail extends Model
         return $this->belongsTo(Course::class);
     }
 
+    public function grades()
+    {
+        // Un alumno en un curso puede tener varias notas (por competencias)
+        return $this->hasMany(Grade::class, 'enrollment_detail_id');
+    }
+
+    public function enrollment()
+    {
+        return $this->belongsTo(Enrollment::class);
+    }
+
 }

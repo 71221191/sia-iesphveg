@@ -21,7 +21,10 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboardController; 
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\TreasuryController;
-
+use App\Http\Controllers\Teacher\SectionController;
+use App\Http\Controllers\Teacher\GradeController;
+use App\Http\Controllers\Admin\CompetencyController;
+use App\Http\Controllers\Admin\DomainController;
 
 // 1. RUTA DE BIENVENIDA (Landing Page)
 
@@ -96,6 +99,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/estudiantes/{personId}/certificado', [ReportController::class, 'downloadCertificate'])
         ->name('students.certificate');
 
+        // CRUD de Competencias
+        Route::get('/competencias', [CompetencyController::class, 'index'])->name('competencies.index');
+        Route::post('/competencias', [CompetencyController::class, 'store'])->name('competencies.store');
+
+        Route::post('/dominios', [DomainController::class, 'store'])->name('domains.store');
+        Route::delete('/dominios/{domain}', [DomainController::class, 'destroy'])->name('domains.destroy');
+
     });
 
     // Solo Tesorería y Admin pueden entrar aquí
@@ -111,6 +121,29 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::patch('/pagos/{payment}/verify', [TreasuryController::class, 'verify'])->name('payments.verify');
     });
 
+    Route::middleware(['auth', 'role:docente|admin'])->prefix('docente')->name('teacher.')->group(function () {
+
+        // 1. Ver mis cursos
+        Route::get('/secciones', [SectionController::class, 'index'])->name('sections.index');
+
+        // 2. Ver la sábana de notas (Alumnos y cuadros de texto)
+        Route::get('/secciones/{section}', [SectionController::class, 'show'])->name('sections.show');
+
+        // 3. Guardar las notas (POST)
+        Route::post('/secciones/{section}/notas', [GradeController::class, 'store'])->name('grades.store');
+
+        Route::get('/secciones/{section}/configurar', [SectionController::class, 'configure'])->name('sections.configure');
+        Route::post('/secciones/{section}/configurar', [SectionController::class, 'setCompetencies'])->name('sections.set-competencies');
+
+        Route::put('/dominios/{domain}', [DomainController::class, 'update'])->name('domains.update');
+        Route::put('/competencias/{competency}', [CompetencyController::class, 'update'])->name('competencies.update');
+
+        Route::patch('/secciones/{section}/cerrar', [SectionController::class, 'close'])->name('sections.close');
+
+        Route::get('/secciones/{section}/pdf', [SectionController::class, 'pdf'])
+        ->name('sections.pdf');
+
+    });
 });
 
 // 3. CONFIGURACIONES ADICIONALES (Profile, etc.)

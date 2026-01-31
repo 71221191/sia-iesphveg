@@ -5,8 +5,10 @@ import study_programs from './study_programs'
 import study_plans from './study_plans'
 import courses from './courses'
 import course_sections from './course_sections'
+import competencies from './competencies'
+import domains from './domains'
 /**
- * @see routes/web.php:59
+ * @see routes/web.php:62
  * @route '/admin/dashboard'
  */
 export const dashboard = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -20,7 +22,7 @@ dashboard.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
- * @see routes/web.php:59
+ * @see routes/web.php:62
  * @route '/admin/dashboard'
  */
 dashboard.url = (options?: RouteQueryOptions) => {
@@ -28,7 +30,7 @@ dashboard.url = (options?: RouteQueryOptions) => {
 }
 
 /**
- * @see routes/web.php:59
+ * @see routes/web.php:62
  * @route '/admin/dashboard'
  */
 dashboard.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -36,7 +38,7 @@ dashboard.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     method: 'get',
 })
 /**
- * @see routes/web.php:59
+ * @see routes/web.php:62
  * @route '/admin/dashboard'
  */
 dashboard.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -45,7 +47,7 @@ dashboard.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
     /**
- * @see routes/web.php:59
+ * @see routes/web.php:62
  * @route '/admin/dashboard'
  */
     const dashboardForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -54,7 +56,7 @@ dashboard.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     })
 
             /**
- * @see routes/web.php:59
+ * @see routes/web.php:62
  * @route '/admin/dashboard'
  */
         dashboardForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -62,7 +64,7 @@ dashboard.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
             method: 'get',
         })
             /**
- * @see routes/web.php:59
+ * @see routes/web.php:62
  * @route '/admin/dashboard'
  */
         dashboardForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -84,6 +86,8 @@ study_programs: Object.assign(study_programs, study_programs),
 study_plans: Object.assign(study_plans, study_plans),
 courses: Object.assign(courses, courses),
 course_sections: Object.assign(course_sections, course_sections),
+competencies: Object.assign(competencies, competencies),
+domains: Object.assign(domains, domains),
 }
 
 export default admin
