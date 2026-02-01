@@ -170,7 +170,8 @@ const sectionsByCycle = computed(() => {
                                         :class="{
                                             'bg-green-50/50': section.status === 'passed',
                                             'bg-gray-50 opacity-70': section.status === 'locked',
-                                            'bg-orange-50/30': section.status === 'no_vacancies'
+                                            'bg-orange-50/30': section.status === 'no_vacancies',
+                                            'bg-blue-50/80 border-l-4 border-blue-500': section.status === 'enrolled'
                                         }">
 
                                         <!-- 1. Columna de Selección -->
@@ -185,6 +186,11 @@ const sectionsByCycle = computed(() => {
                                             <!-- Si ya lo pasó, mostramos un check verde -->
                                             <span v-else-if="section.status === 'passed'" class="text-green-600 font-bold text-lg" title="Ya aprobado">
                                                 <span class="sr-only">Aprobado</span> ✅
+                                            </span>
+
+                                            <!-- Si ya está MATRICULADO en este ciclo -->
+                                            <span v-else-if="section.status === 'enrolled'" class="text-blue-600 font-bold text-lg" title="Ya estás inscrito">
+                                                <span class="sr-only">Inscrito</span> 📝
                                             </span>
 
                                             <!-- Si está bloqueado, mostramos un candado -->
@@ -208,6 +214,11 @@ const sectionsByCycle = computed(() => {
                                             <span :class="section.status === 'locked' ? 'text-gray-400' : 'text-gray-900'">
                                                 {{ section.course_name }}
                                             </span>
+
+                                            <!-- Aviso de matriculado -->
+                                            <div v-if="section.status === 'enrolled'" class="text-[10px] text-blue-600 font-bold mt-0.5 uppercase tracking-tighter">
+                                                Estás matriculado en esta sección
+                                            </div>
 
                                             <!-- IMPORTANTE: Mostrar por qué no puede llevarlo -->
                                             <div v-if="section.status === 'locked'" class="text-[10px] text-red-500 italic mt-0.5">

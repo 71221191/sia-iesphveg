@@ -1,4 +1,6 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition } from './../../wayfinder'
+import centrosPractica from './centros-practica'
+import asignacionesPractica from './asignaciones-practica'
 import students from './students'
 import academic_periods from './academic_periods'
 import study_programs from './study_programs'
@@ -8,7 +10,7 @@ import course_sections from './course_sections'
 import competencies from './competencies'
 import domains from './domains'
 /**
- * @see routes/web.php:62
+ * @see routes/web.php:74
  * @route '/admin/dashboard'
  */
 export const dashboard = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -22,7 +24,7 @@ dashboard.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
- * @see routes/web.php:62
+ * @see routes/web.php:74
  * @route '/admin/dashboard'
  */
 dashboard.url = (options?: RouteQueryOptions) => {
@@ -30,7 +32,7 @@ dashboard.url = (options?: RouteQueryOptions) => {
 }
 
 /**
- * @see routes/web.php:62
+ * @see routes/web.php:74
  * @route '/admin/dashboard'
  */
 dashboard.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -38,7 +40,7 @@ dashboard.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     method: 'get',
 })
 /**
- * @see routes/web.php:62
+ * @see routes/web.php:74
  * @route '/admin/dashboard'
  */
 dashboard.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -47,7 +49,7 @@ dashboard.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
     /**
- * @see routes/web.php:62
+ * @see routes/web.php:74
  * @route '/admin/dashboard'
  */
     const dashboardForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -56,7 +58,7 @@ dashboard.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     })
 
             /**
- * @see routes/web.php:62
+ * @see routes/web.php:74
  * @route '/admin/dashboard'
  */
         dashboardForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -64,7 +66,7 @@ dashboard.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
             method: 'get',
         })
             /**
- * @see routes/web.php:62
+ * @see routes/web.php:74
  * @route '/admin/dashboard'
  */
         dashboardForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -80,6 +82,8 @@ dashboard.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     dashboard.form = dashboardForm
 const admin = {
     dashboard: Object.assign(dashboard, dashboard),
+centrosPractica: Object.assign(centrosPractica, centrosPractica),
+asignacionesPractica: Object.assign(asignacionesPractica, asignacionesPractica),
 students: Object.assign(students, students),
 academic_periods: Object.assign(academic_periods, academic_periods),
 study_programs: Object.assign(study_programs, study_programs),

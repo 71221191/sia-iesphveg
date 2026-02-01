@@ -43,9 +43,17 @@ const props = defineProps({
                           class="block w-full text-center bg-gray-900 text-white py-3 rounded-xl font-bold hover:bg-blue-700 transition">
                         {{ section.is_closed ? 'Ver Calificaciones' : 'Registrar Notas' }}
                     </Link>
+                    <Link :href="route('teacher.attendance.index', section.id)"
+                        class="mt-2 block w-full text-center bg-blue-50 text-blue-600 py-2 rounded-xl text-xs font-black hover:bg-blue-100 transition uppercase tracking-widest">
+                        📊 Control de Asistencia
+                    </Link>
                     <Link :href="route('teacher.sections.configure', section.id)"
                         class="mt-2 block w-full text-center border-2 border-gray-200 text-gray-600 py-2 rounded-xl text-xs font-bold hover:bg-gray-50 transition">
                         ⚙️ CONFIGURAR COMPETENCIAS
+                    </Link>
+                    <Link :href="route('teacher.portfolio.index', section.id)" 
+                        class="mt-2 block w-full text-center bg-white border-2 border-gray-100 text-gray-400 py-2 rounded-xl text-xs font-bold hover:border-blue-200 hover:text-blue-500 transition uppercase tracking-widest">
+                        📁 PORTAFOLIO DIGITAL
                     </Link>
                 </div>
             </div>

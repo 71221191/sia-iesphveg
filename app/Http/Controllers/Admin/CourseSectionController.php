@@ -22,7 +22,7 @@ class CourseSectionController extends Controller
     public function index()
     {
         Log::info('[CourseSectionController@index] Cargando lista de secciones de cursos.');
-        $courseSections = CourseSection::with('course.studyPlan.studyProgram', 'academicPeriod', 'teacher.person')
+        $courseSections = CourseSection::with('course.studyPlan.studyProgram', 'academicPeriod', 'teacher')
                                        ->orderBy('academic_period_id', 'desc')
                                        ->orderBy('course_id')
                                        ->orderBy('name')

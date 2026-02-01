@@ -98,10 +98,7 @@ class EnrollmentService
 
     public function getAvailableSectionsWithStatus(Person $person, AcademicPeriod $period)
     {
-        // Creamos una "llave" única para este alumno y este periodo
-        $cacheKey = "eligible_courses_{$person->id}_{$period->id}";
-        // 1. Obtener los IDs de cursos que el alumno YA APROBÓ
-        // Buscamos en los detalles de matrículas anteriores que tengan estado 'approved'
+        // 1. Cursos APROBADOS en el pasado
         $approvedCourseIds = DB::table('enrollment_details')
             ->join('enrollments', 'enrollment_details.enrollment_id', '=', 'enrollments.id')
             ->where('enrollments.person_id', $person->id)
@@ -109,36 +106,45 @@ class EnrollmentService
             ->pluck('enrollment_details.course_id')
             ->toArray();
 
-        // 2. Traer las secciones disponibles con sus cursos y prerrequisitos
+        // 2. NUEVA LÓGICA: Cursos ya MATRICULADOS en este periodo actual
+        $alreadyEnrolledCourseIds = DB::table('enrollment_details')
+            ->join('enrollments', 'enrollment_details.enrollment_id', '=', 'enrollments.id')
+            ->where('enrollments.person_id', $person->id)
+            ->where('enrollments.academic_period_id', $period->id)
+            ->pluck('enrollment_details.course_id')
+            ->toArray();
+
         $sections = CourseSection::with(['course.prerequisites', 'teacher'])
             ->where('academic_period_id', $period->id)
             ->get();
 
-        // 3. Mapear cada sección para calcular su estado
-        return $sections->map(function ($section) use ($approvedCourseIds) {
+        return $sections->map(function ($section) use ($approvedCourseIds, $alreadyEnrolledCourseIds) {
             $course = $section->course;
-            $status = 'available'; // Estado por defecto
+            $status = 'available';
             $lockReason = null;
 
-            // REGLA A: ¿Ya lo aprobó?
+            // REGLA A: ¿Ya lo aprobó antes?
             if (in_array($course->id, $approvedCourseIds)) {
                 $status = 'passed';
             }
+            // REGLA B (NUEVA): ¿Ya está matriculado en este ciclo?
+            elseif (in_array($course->id, $alreadyEnrolledCourseIds)) {
+                $status = 'enrolled'; // Estado nuevo
+                $lockReason = "Ya estás matriculado en este curso.";
+            }
             else {
-                // REGLA B: ¿Cumple prerrequisitos?
+                // REGLA C: ¿Cumple prerrequisitos?
                 foreach ($course->prerequisites as $prereq) {
-                    // Si el ID del prerrequisito NO está en mis aprobados...
                     if (!in_array($prereq->prerequisite_course_id, $approvedCourseIds)) {
                         $status = 'locked';
-                        // Buscamos el nombre del curso que lo bloquea para avisarle al alumno
                         $missingCourse = Course::find($prereq->prerequisite_course_id);
                         $lockReason = "Falta aprobar: " . ($missingCourse ? $missingCourse->name : 'Prerrequisito');
-                        break; // Con un prerrequisito que falte, ya está bloqueado
+                        break;
                     }
                 }
             }
 
-            // REGLA C: ¿Hay vacantes? (Solo si no está aprobado o bloqueado)
+            // REGLA D: Vacantes
             $inscritos = DB::table('enrollment_details')
                 ->where('course_section_id', $section->id)
                 ->count();
@@ -156,11 +162,11 @@ class EnrollmentService
                 'course_name' => $course->name,
                 'credits' => $course->credits,
                 'section_name' => $section->name,
-                'teacher_name' => $section->teacher ? $section->teacher->name : 'Por asignar',
-                'status' => $status,
+                'teacher_name' => $section->teacher ? $section->teacher->names : 'Por asignar',
+                'status' => $status, // 'available', 'locked', 'passed', 'no_vacancies', 'enrolled'
                 'lock_reason' => $lockReason,
-                'vacancy_limit' => $section->vacancy_limit, // Asegúrate que esta línea esté
-                'remaining_vacancies' => $disponibles,     // Y esta también
+                'vacancy_limit' => $section->vacancy_limit,
+                'remaining_vacancies' => $disponibles,
             ];
         });
     }

@@ -12,10 +12,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Helpers\NumberHelper;
 use Barryvdh\DomPDF\Facade\Pdf;
-
+use App\Services\AttendanceService;
 
 class SectionController extends Controller
 {
+    protected $attendanceService;
+
+    public function __construct(AttendanceService $attendanceService)
+    {
+        $this->attendanceService = $attendanceService;
+    }
+    
     /**
      * Listado de cursos asignados al docente
      */
@@ -67,14 +74,23 @@ class SectionController extends Controller
                 ];
             });
 
+        $attendanceStats = $this->attendanceService->getAttendanceWarning($section);
         // 4. Cargar escala de notas (Logrado, Proceso, etc.) para los combos
         $gradeScales = GradeScale::all();
 
+        $isSyllabusApproved = $section->portfolios()
+            ->where('type', 'syllabus')
+            ->where('status', 'approved')
+            ->exists();
+
         return Inertia::render('Teacher/Sections/Show', [
-            'section' => $section,
+            'section' => $section->load(['course.competencies', 'academicPeriod']),
             'students' => $students,
-            'gradeScales' => $gradeScales,
-            'evaluationType' => $section->course->evaluation_type // 'numerical' o 'competency'
+            'attendanceStats' => $attendanceStats, // <--- Enviamos esto a Vue
+            'gradeScales' => GradeScale::all(),
+            'evaluationType' => $section->course->evaluation_type,
+            'isSyllabusApproved' => $isSyllabusApproved,
+            'gradeScales' => $gradeScales
         ]);
     }
 

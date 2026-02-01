@@ -15,7 +15,7 @@ import {
 import { dashboard } from '@/routes';
 import { type NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/vue3';
-import { BookOpen, Folder, LayoutGrid, ReceiptText } from 'lucide-vue-next';
+import { BookOpen, Folder, LayoutGrid, ReceiptText, ClipboardList, FileSearch, School,ClipboardCheck, Users } from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
 
 // Importación de rutas (Asegúrate de que estos archivos existan en tu proyecto)
@@ -51,6 +51,11 @@ const isTreasury = computed(() => {
 const isTeacher = computed(() => {
     const roles = user.value?.roles as string[] | undefined;
     return Array.isArray(roles) && roles.includes('docente');
+});
+
+const isHeadOfArea = computed(() => {
+    const roles = user.value?.roles as string[] | undefined;
+    return Array.isArray(roles) && roles.includes('jefe_de_area');
 });
 
 // 3. Menús Estáticos
@@ -95,6 +100,16 @@ const adminNavItems: NavItem[] = [
         href: '/admin/competencias', // Definiremos esta ruta ahora
         icon: BookOpen, // Usa un icono de catálogo o libro
     },
+    {
+        title: 'Centros de Práctica',
+        href: route('admin.centros-practica.index'),
+        icon: School,
+    },
+    {
+        title: 'Asignación Prácticas',
+        href: route('admin.asignaciones-practica.index'),
+        icon: ClipboardCheck,
+    },
 ];
 
 const studentNavItems: NavItem[] = [
@@ -102,6 +117,11 @@ const studentNavItems: NavItem[] = [
         title: 'Ficha Socioeconómica',
         href: '/ficha-socioeconomica',
         icon: Folder,
+    },
+    {
+        title: 'Mi Progreso / Notas', // <--- Añade este
+        href: route('student.progress.index'),
+        icon: ClipboardList, 
     },
     {
         title: 'Mis Pagos / Tesorería', // <-- Añadimos este
@@ -129,8 +149,21 @@ const teacherNavItems = [
         href: route('teacher.sections.index'),
         icon: BookOpen,
     },
+    {
+        title: 'Supervisión de Prácticas',
+        href: route('teacher.practice.index'),
+        icon: Users, // O un icono de portafolio/maletín
+    },
 ];
 
+const headOfAreaItems: NavItem[] = [
+    {
+        title: 'Validar Portafolios',
+        // Usamos el nombre de la ruta que pusimos en web.php
+        href: route('head_of_area.portfolio.index'), 
+        icon: FileSearch, 
+    },
+];
 
 // 4. Menú Principal Dinámico
 const mainNavItems = computed(() => {
@@ -158,6 +191,9 @@ const mainNavItems = computed(() => {
     if (isTeacher.value) {
         items.push(...teacherNavItems);
     }
+    if (isHeadOfArea.value || isAdmin.value) {
+        items.push(...headOfAreaItems);
+    } 
 
     return items;
 });

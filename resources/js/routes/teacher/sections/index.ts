@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../wayfinder'
 /**
 * @see \App\Http\Controllers\Teacher\SectionController::index
- * @see app/Http/Controllers/Teacher/SectionController.php:22
+ * @see app/Http/Controllers/Teacher/SectionController.php:29
  * @route '/docente/secciones'
  */
 export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ index.definition = {
 
 /**
 * @see \App\Http\Controllers\Teacher\SectionController::index
- * @see app/Http/Controllers/Teacher/SectionController.php:22
+ * @see app/Http/Controllers/Teacher/SectionController.php:29
  * @route '/docente/secciones'
  */
 index.url = (options?: RouteQueryOptions) => {
@@ -25,7 +25,7 @@ index.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\Teacher\SectionController::index
- * @see app/Http/Controllers/Teacher/SectionController.php:22
+ * @see app/Http/Controllers/Teacher/SectionController.php:29
  * @route '/docente/secciones'
  */
 index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -34,7 +34,7 @@ index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 /**
 * @see \App\Http\Controllers\Teacher\SectionController::index
- * @see app/Http/Controllers/Teacher/SectionController.php:22
+ * @see app/Http/Controllers/Teacher/SectionController.php:29
  * @route '/docente/secciones'
  */
 index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -44,7 +44,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
     /**
 * @see \App\Http\Controllers\Teacher\SectionController::index
- * @see app/Http/Controllers/Teacher/SectionController.php:22
+ * @see app/Http/Controllers/Teacher/SectionController.php:29
  * @route '/docente/secciones'
  */
     const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -54,7 +54,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
             /**
 * @see \App\Http\Controllers\Teacher\SectionController::index
- * @see app/Http/Controllers/Teacher/SectionController.php:22
+ * @see app/Http/Controllers/Teacher/SectionController.php:29
  * @route '/docente/secciones'
  */
         indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -63,7 +63,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
         })
             /**
 * @see \App\Http\Controllers\Teacher\SectionController::index
- * @see app/Http/Controllers/Teacher/SectionController.php:22
+ * @see app/Http/Controllers/Teacher/SectionController.php:29
  * @route '/docente/secciones'
  */
         indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -79,7 +79,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     index.form = indexForm
 /**
 * @see \App\Http\Controllers\Teacher\SectionController::show
- * @see app/Http/Controllers/Teacher/SectionController.php:46
+ * @see app/Http/Controllers/Teacher/SectionController.php:53
  * @route '/docente/secciones/{section}'
  */
 export const show = (args: { section: number | { id: number } } | [section: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -94,7 +94,7 @@ show.definition = {
 
 /**
 * @see \App\Http\Controllers\Teacher\SectionController::show
- * @see app/Http/Controllers/Teacher/SectionController.php:46
+ * @see app/Http/Controllers/Teacher/SectionController.php:53
  * @route '/docente/secciones/{section}'
  */
 show.url = (args: { section: number | { id: number } } | [section: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -127,7 +127,7 @@ show.url = (args: { section: number | { id: number } } | [section: number | { id
 
 /**
 * @see \App\Http\Controllers\Teacher\SectionController::show
- * @see app/Http/Controllers/Teacher/SectionController.php:46
+ * @see app/Http/Controllers/Teacher/SectionController.php:53
  * @route '/docente/secciones/{section}'
  */
 show.get = (args: { section: number | { id: number } } | [section: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -136,7 +136,7 @@ show.get = (args: { section: number | { id: number } } | [section: number | { id
 })
 /**
 * @see \App\Http\Controllers\Teacher\SectionController::show
- * @see app/Http/Controllers/Teacher/SectionController.php:46
+ * @see app/Http/Controllers/Teacher/SectionController.php:53
  * @route '/docente/secciones/{section}'
  */
 show.head = (args: { section: number | { id: number } } | [section: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -146,7 +146,7 @@ show.head = (args: { section: number | { id: number } } | [section: number | { i
 
     /**
 * @see \App\Http\Controllers\Teacher\SectionController::show
- * @see app/Http/Controllers/Teacher/SectionController.php:46
+ * @see app/Http/Controllers/Teacher/SectionController.php:53
  * @route '/docente/secciones/{section}'
  */
     const showForm = (args: { section: number | { id: number } } | [section: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -156,7 +156,7 @@ show.head = (args: { section: number | { id: number } } | [section: number | { i
 
             /**
 * @see \App\Http\Controllers\Teacher\SectionController::show
- * @see app/Http/Controllers/Teacher/SectionController.php:46
+ * @see app/Http/Controllers/Teacher/SectionController.php:53
  * @route '/docente/secciones/{section}'
  */
         showForm.get = (args: { section: number | { id: number } } | [section: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -165,7 +165,7 @@ show.head = (args: { section: number | { id: number } } | [section: number | { i
         })
             /**
 * @see \App\Http\Controllers\Teacher\SectionController::show
- * @see app/Http/Controllers/Teacher/SectionController.php:46
+ * @see app/Http/Controllers/Teacher/SectionController.php:53
  * @route '/docente/secciones/{section}'
  */
         showForm.head = (args: { section: number | { id: number } } | [section: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -181,7 +181,7 @@ show.head = (args: { section: number | { id: number } } | [section: number | { i
     show.form = showForm
 /**
 * @see \App\Http\Controllers\Teacher\SectionController::configure
- * @see app/Http/Controllers/Teacher/SectionController.php:106
+ * @see app/Http/Controllers/Teacher/SectionController.php:122
  * @route '/docente/secciones/{section}/configurar'
  */
 export const configure = (args: { section: number | { id: number } } | [section: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -196,7 +196,7 @@ configure.definition = {
 
 /**
 * @see \App\Http\Controllers\Teacher\SectionController::configure
- * @see app/Http/Controllers/Teacher/SectionController.php:106
+ * @see app/Http/Controllers/Teacher/SectionController.php:122
  * @route '/docente/secciones/{section}/configurar'
  */
 configure.url = (args: { section: number | { id: number } } | [section: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -229,7 +229,7 @@ configure.url = (args: { section: number | { id: number } } | [section: number |
 
 /**
 * @see \App\Http\Controllers\Teacher\SectionController::configure
- * @see app/Http/Controllers/Teacher/SectionController.php:106
+ * @see app/Http/Controllers/Teacher/SectionController.php:122
  * @route '/docente/secciones/{section}/configurar'
  */
 configure.get = (args: { section: number | { id: number } } | [section: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -238,7 +238,7 @@ configure.get = (args: { section: number | { id: number } } | [section: number |
 })
 /**
 * @see \App\Http\Controllers\Teacher\SectionController::configure
- * @see app/Http/Controllers/Teacher/SectionController.php:106
+ * @see app/Http/Controllers/Teacher/SectionController.php:122
  * @route '/docente/secciones/{section}/configurar'
  */
 configure.head = (args: { section: number | { id: number } } | [section: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -248,7 +248,7 @@ configure.head = (args: { section: number | { id: number } } | [section: number 
 
     /**
 * @see \App\Http\Controllers\Teacher\SectionController::configure
- * @see app/Http/Controllers/Teacher/SectionController.php:106
+ * @see app/Http/Controllers/Teacher/SectionController.php:122
  * @route '/docente/secciones/{section}/configurar'
  */
     const configureForm = (args: { section: number | { id: number } } | [section: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -258,7 +258,7 @@ configure.head = (args: { section: number | { id: number } } | [section: number 
 
             /**
 * @see \App\Http\Controllers\Teacher\SectionController::configure
- * @see app/Http/Controllers/Teacher/SectionController.php:106
+ * @see app/Http/Controllers/Teacher/SectionController.php:122
  * @route '/docente/secciones/{section}/configurar'
  */
         configureForm.get = (args: { section: number | { id: number } } | [section: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -267,7 +267,7 @@ configure.head = (args: { section: number | { id: number } } | [section: number 
         })
             /**
 * @see \App\Http\Controllers\Teacher\SectionController::configure
- * @see app/Http/Controllers/Teacher/SectionController.php:106
+ * @see app/Http/Controllers/Teacher/SectionController.php:122
  * @route '/docente/secciones/{section}/configurar'
  */
         configureForm.head = (args: { section: number | { id: number } } | [section: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -283,7 +283,7 @@ configure.head = (args: { section: number | { id: number } } | [section: number 
     configure.form = configureForm
 /**
 * @see \App\Http\Controllers\Teacher\SectionController::setCompetencies
- * @see app/Http/Controllers/Teacher/SectionController.php:121
+ * @see app/Http/Controllers/Teacher/SectionController.php:137
  * @route '/docente/secciones/{section}/configurar'
  */
 export const setCompetencies = (args: { section: number | { id: number } } | [section: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -298,7 +298,7 @@ setCompetencies.definition = {
 
 /**
 * @see \App\Http\Controllers\Teacher\SectionController::setCompetencies
- * @see app/Http/Controllers/Teacher/SectionController.php:121
+ * @see app/Http/Controllers/Teacher/SectionController.php:137
  * @route '/docente/secciones/{section}/configurar'
  */
 setCompetencies.url = (args: { section: number | { id: number } } | [section: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -331,7 +331,7 @@ setCompetencies.url = (args: { section: number | { id: number } } | [section: nu
 
 /**
 * @see \App\Http\Controllers\Teacher\SectionController::setCompetencies
- * @see app/Http/Controllers/Teacher/SectionController.php:121
+ * @see app/Http/Controllers/Teacher/SectionController.php:137
  * @route '/docente/secciones/{section}/configurar'
  */
 setCompetencies.post = (args: { section: number | { id: number } } | [section: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -341,7 +341,7 @@ setCompetencies.post = (args: { section: number | { id: number } } | [section: n
 
     /**
 * @see \App\Http\Controllers\Teacher\SectionController::setCompetencies
- * @see app/Http/Controllers/Teacher/SectionController.php:121
+ * @see app/Http/Controllers/Teacher/SectionController.php:137
  * @route '/docente/secciones/{section}/configurar'
  */
     const setCompetenciesForm = (args: { section: number | { id: number } } | [section: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -351,7 +351,7 @@ setCompetencies.post = (args: { section: number | { id: number } } | [section: n
 
             /**
 * @see \App\Http\Controllers\Teacher\SectionController::setCompetencies
- * @see app/Http/Controllers/Teacher/SectionController.php:121
+ * @see app/Http/Controllers/Teacher/SectionController.php:137
  * @route '/docente/secciones/{section}/configurar'
  */
         setCompetenciesForm.post = (args: { section: number | { id: number } } | [section: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -362,7 +362,7 @@ setCompetencies.post = (args: { section: number | { id: number } } | [section: n
     setCompetencies.form = setCompetenciesForm
 /**
 * @see \App\Http\Controllers\Teacher\SectionController::close
- * @see app/Http/Controllers/Teacher/SectionController.php:81
+ * @see app/Http/Controllers/Teacher/SectionController.php:97
  * @route '/docente/secciones/{section}/cerrar'
  */
 export const close = (args: { section: number | { id: number } } | [section: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
@@ -377,7 +377,7 @@ close.definition = {
 
 /**
 * @see \App\Http\Controllers\Teacher\SectionController::close
- * @see app/Http/Controllers/Teacher/SectionController.php:81
+ * @see app/Http/Controllers/Teacher/SectionController.php:97
  * @route '/docente/secciones/{section}/cerrar'
  */
 close.url = (args: { section: number | { id: number } } | [section: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -410,7 +410,7 @@ close.url = (args: { section: number | { id: number } } | [section: number | { i
 
 /**
 * @see \App\Http\Controllers\Teacher\SectionController::close
- * @see app/Http/Controllers/Teacher/SectionController.php:81
+ * @see app/Http/Controllers/Teacher/SectionController.php:97
  * @route '/docente/secciones/{section}/cerrar'
  */
 close.patch = (args: { section: number | { id: number } } | [section: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
@@ -420,7 +420,7 @@ close.patch = (args: { section: number | { id: number } } | [section: number | {
 
     /**
 * @see \App\Http\Controllers\Teacher\SectionController::close
- * @see app/Http/Controllers/Teacher/SectionController.php:81
+ * @see app/Http/Controllers/Teacher/SectionController.php:97
  * @route '/docente/secciones/{section}/cerrar'
  */
     const closeForm = (args: { section: number | { id: number } } | [section: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -435,7 +435,7 @@ close.patch = (args: { section: number | { id: number } } | [section: number | {
 
             /**
 * @see \App\Http\Controllers\Teacher\SectionController::close
- * @see app/Http/Controllers/Teacher/SectionController.php:81
+ * @see app/Http/Controllers/Teacher/SectionController.php:97
  * @route '/docente/secciones/{section}/cerrar'
  */
         closeForm.patch = (args: { section: number | { id: number } } | [section: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -451,7 +451,7 @@ close.patch = (args: { section: number | { id: number } } | [section: number | {
     close.form = closeForm
 /**
 * @see \App\Http\Controllers\Teacher\SectionController::pdf
- * @see app/Http/Controllers/Teacher/SectionController.php:136
+ * @see app/Http/Controllers/Teacher/SectionController.php:152
  * @route '/docente/secciones/{section}/pdf'
  */
 export const pdf = (args: { section: number | { id: number } } | [section: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -466,7 +466,7 @@ pdf.definition = {
 
 /**
 * @see \App\Http\Controllers\Teacher\SectionController::pdf
- * @see app/Http/Controllers/Teacher/SectionController.php:136
+ * @see app/Http/Controllers/Teacher/SectionController.php:152
  * @route '/docente/secciones/{section}/pdf'
  */
 pdf.url = (args: { section: number | { id: number } } | [section: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -499,7 +499,7 @@ pdf.url = (args: { section: number | { id: number } } | [section: number | { id:
 
 /**
 * @see \App\Http\Controllers\Teacher\SectionController::pdf
- * @see app/Http/Controllers/Teacher/SectionController.php:136
+ * @see app/Http/Controllers/Teacher/SectionController.php:152
  * @route '/docente/secciones/{section}/pdf'
  */
 pdf.get = (args: { section: number | { id: number } } | [section: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -508,7 +508,7 @@ pdf.get = (args: { section: number | { id: number } } | [section: number | { id:
 })
 /**
 * @see \App\Http\Controllers\Teacher\SectionController::pdf
- * @see app/Http/Controllers/Teacher/SectionController.php:136
+ * @see app/Http/Controllers/Teacher/SectionController.php:152
  * @route '/docente/secciones/{section}/pdf'
  */
 pdf.head = (args: { section: number | { id: number } } | [section: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -518,7 +518,7 @@ pdf.head = (args: { section: number | { id: number } } | [section: number | { id
 
     /**
 * @see \App\Http\Controllers\Teacher\SectionController::pdf
- * @see app/Http/Controllers/Teacher/SectionController.php:136
+ * @see app/Http/Controllers/Teacher/SectionController.php:152
  * @route '/docente/secciones/{section}/pdf'
  */
     const pdfForm = (args: { section: number | { id: number } } | [section: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -528,7 +528,7 @@ pdf.head = (args: { section: number | { id: number } } | [section: number | { id
 
             /**
 * @see \App\Http\Controllers\Teacher\SectionController::pdf
- * @see app/Http/Controllers/Teacher/SectionController.php:136
+ * @see app/Http/Controllers/Teacher/SectionController.php:152
  * @route '/docente/secciones/{section}/pdf'
  */
         pdfForm.get = (args: { section: number | { id: number } } | [section: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -537,7 +537,7 @@ pdf.head = (args: { section: number | { id: number } } | [section: number | { id
         })
             /**
 * @see \App\Http\Controllers\Teacher\SectionController::pdf
- * @see app/Http/Controllers/Teacher/SectionController.php:136
+ * @see app/Http/Controllers/Teacher/SectionController.php:152
  * @route '/docente/secciones/{section}/pdf'
  */
         pdfForm.head = (args: { section: number | { id: number } } | [section: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({

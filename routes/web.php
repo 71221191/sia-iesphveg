@@ -25,6 +25,13 @@ use App\Http\Controllers\Teacher\SectionController;
 use App\Http\Controllers\Teacher\GradeController;
 use App\Http\Controllers\Admin\CompetencyController;
 use App\Http\Controllers\Admin\DomainController;
+use App\Http\Controllers\Teacher\AttendanceController;
+use App\Http\Controllers\Student\ProgressController;
+use App\Http\Controllers\Teacher\PortfolioController;
+use App\Http\Controllers\HeadOfArea\PortfolioValidationController;
+use App\Http\Controllers\Admin\PracticeCenterController;
+use App\Http\Controllers\Admin\PracticeAssignmentController;
+use App\Http\Controllers\Teacher\PracticeEvaluationController;
 
 // 1. RUTA DE BIENVENIDA (Landing Page)
 
@@ -36,6 +43,11 @@ Route::get('/', function () {
 
 // 2. RUTAS PROTEGIDAS POR LOGIN
 Route::middleware(['auth', 'verified'])->group(function () {
+
+    Route::middleware(['auth', 'role:estudiante'])->prefix('estudiante')->name('student.')->group(function () {
+        // Ver notas y asistencias actuales
+        Route::get('/mi-progreso', [ProgressController::class, 'index'])->name('progress.index');
+    });
 
     // --- ZONA ALUMNO (Común) ---
     // Rutas para el alumno
@@ -62,6 +74,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/dashboard', function () {
             return Inertia::render('Admin/Dashboard');
         })->name('dashboard');
+
+        Route::resource('centros-practica', PracticeCenterController::class)->only(['index', 'store', 'update']);
+
+        Route::resource('asignaciones-practica', PracticeAssignmentController::class)->only(['index', 'store', 'destroy']);
 
         // 2. Gestión de Estudiantes
         Route::get('/estudiantes', [StudentController::class, 'index'])->name('students.index');
@@ -105,7 +121,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::post('/dominios', [DomainController::class, 'store'])->name('domains.store');
         Route::delete('/dominios/{domain}', [DomainController::class, 'destroy'])->name('domains.destroy');
-
     });
 
     // Solo Tesorería y Admin pueden entrar aquí
@@ -119,6 +134,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
             // Acción de aprobar/rechazar
             Route::patch('/pagos/{payment}/verify', [TreasuryController::class, 'verify'])->name('payments.verify');
+    });
+
+    Route::middleware(['auth', 'role:jefe_de_area|admin'])
+        ->prefix('jefe-area')
+        ->name('head_of_area.')
+        ->group(function () {
+            
+            // Dashboard de validación de documentos
+            Route::get('/validar-portafolio', [PortfolioValidationController::class, 'index'])->name('portfolio.index');
+            
+            // Acción de aprobar u observar
+            Route::patch('/validar-portafolio/{portfolio}', [PortfolioValidationController::class, 'update'])->name('portfolio.update');
     });
 
     Route::middleware(['auth', 'role:docente|admin'])->prefix('docente')->name('teacher.')->group(function () {
@@ -142,6 +169,35 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::get('/secciones/{section}/pdf', [SectionController::class, 'pdf'])
         ->name('sections.pdf');
+
+        Route::get('/mis-practicantes', [PracticeEvaluationController::class, 'index'])->name('practice.index');
+        
+        Route::post('/mis-practicantes/{assignment}/evaluar', [PracticeEvaluationController::class, 'store'])->name('practice.store');
+
+        Route::prefix('asistencia')->name('attendance.')->group(function () {
+            // 1. Ver lista de sesiones (clases) de una sección
+            Route::get('/seccion/{section}', [AttendanceController::class, 'index'])->name('index');
+
+            // 2. Guardar una nueva sesión de clase (el encabezado)
+            Route::post('/seccion/{section}/sesion', [AttendanceController::class, 'storeSession'])->name('store-session');
+
+            // 3. Ver la hoja de asistencia de una sesión específica
+            Route::get('/sesion/{session}', [AttendanceController::class, 'show'])->name('show');
+
+            // 4. Guardar los checks de asistencia
+            Route::post('/sesion/{session}/registrar', [AttendanceController::class, 'storeRecords'])->name('store-records');
+        });
+
+        Route::prefix('portafolio')->name('portfolio.')->group(function () {
+            // 1. Ver los archivos de una sección
+            Route::get('/seccion/{section}', [PortfolioController::class, 'index'])->name('index');
+            
+            // 2. Subir un nuevo archivo
+            Route::post('/seccion/{section}/subir', [PortfolioController::class, 'store'])->name('store');
+            
+            // 3. Eliminar un archivo (solo si está pendiente)
+            Route::delete('/archivo/{portfolio}', [PortfolioController::class, 'destroy'])->name('destroy');
+        });
 
     });
 });

@@ -9,12 +9,21 @@ class EnrollmentDetail extends Model
     protected $fillable = [
         'enrollment_id',
         'course_id',
-        'course_section_id',
+        'course_section_id', // <--- Este es el campo que usaremos
         'final_score_numeric',
         'is_legacy',
         'status',
         'attempt_number'
     ];
+
+    // --- RELACIONES ---
+
+    // 1. Relación con la Sección de Curso (LA QUE FALTABA)
+    public function courseSection()
+    {
+        // Un detalle de matrícula pertenece a una sección específica
+        return $this->belongsTo(CourseSection::class, 'course_section_id');
+    }
 
     public function course()
     {
@@ -23,7 +32,6 @@ class EnrollmentDetail extends Model
 
     public function grades()
     {
-        // Un alumno en un curso puede tener varias notas (por competencias)
         return $this->hasMany(Grade::class, 'enrollment_detail_id');
     }
 
@@ -31,5 +39,4 @@ class EnrollmentDetail extends Model
     {
         return $this->belongsTo(Enrollment::class);
     }
-
 }

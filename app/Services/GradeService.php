@@ -8,78 +8,85 @@ use App\Models\CourseSection;
 use App\Models\GradeScale;
 use Illuminate\Support\Facades\DB;
 use Exception;
-
+use App\Services\AttendanceService;
 class GradeService
 {
+    protected $attendanceService;
+
+    // AÑADE EL CONSTRUCTOR
+    public function __construct(AttendanceService $attendanceService)
+    {
+        $this->attendanceService = $attendanceService;
+    }
+
     public function saveGrades(CourseSection $section, array $gradesData, $teacherId)
     {
         return DB::transaction(function () use ($section, $gradesData, $teacherId) {
 
-            // 1. Validar acta cerrada
+            // 4. Obtenemos las alertas de asistencia (quién tiene >= 30% de faltas)
+            $attendanceStats = $this->attendanceService->getAttendanceWarning($section);
+
+            // ... (validación de acta cerrada y carga de escalas que ya tienes) ...
             if ($section->is_closed) {
                 throw new Exception("El acta ya está cerrada y no se pueden modificar las notas.");
             }
-
-            // 2. Traemos todas las escalas de una vez para no hacer mil consultas (Optimización)
             $scales = GradeScale::all()->pluck('numeric_equivalent', 'id');
 
             foreach ($gradesData as $studentData) {
                 $detailId = $studentData['detail_id'];
+                $detail = EnrollmentDetail::with('enrollment')->findOrFail($detailId);
+                $personId = $detail->enrollment->person_id; // Obtenemos el ID del alumno
+
                 $finalNote = null;
 
-                // --- ESCENARIO A: Evaluación por Competencias ---
-                if ($section->course->evaluation_type === 'competency') {
-                    $sum = 0;
-                    $count = 0;
+                // --- REGLA CRÍTICA: BLOQUEO POR DPI (30% FALTAS) ---
+                $esDPI = isset($attendanceStats[$personId]) && $attendanceStats[$personId]['is_danger'];
 
-                    foreach ($studentData['competencies'] as $compData) {
-                        // Solo guardamos si eligió una nota
-                        if (!empty($compData['grade_scale_id'])) {
-                            Grade::updateOrCreate(
-                                ['enrollment_detail_id' => $detailId, 'competency_id' => $compData['competency_id']],
-                                [
-                                    'grade_scale_id' => $compData['grade_scale_id'],
-                                    'registered_by' => $teacherId,
-                                    'registered_at' => now(),
-                                ]
-                            );
-                            $sum += $scales[$compData['grade_scale_id']] ?? 0;
-                            $count++;
-                        }
-                        // SI ELIGIÓ EL "-" (VACÍO)
-                        else {
-                            // Borramos el registro si existía para que quede limpio
-                            Grade::where('enrollment_detail_id', $detailId)
-                                ->where('competency_id', $compData['competency_id'])
-                                ->delete();
-                        }
-                    }
+                if ($esDPI) {
+                    // Si tiene 30% o más de faltas, ignoramos lo que mandó el profe y ponemos 00
+                    $finalNote = 0;
 
-                    // Calculamos la nota vigesimal final si el alumno tiene notas
-                    if ($count > 0) {
-                        $average = $sum / $count;
-                        $finalNote = $this->calculateVigesimal($average);
-                    }
+                    // Opcional: Borrar notas de competencias si existen para que quede limpio como jalado por faltas
+                    Grade::where('enrollment_detail_id', $detailId)->delete();
                 }
-
-                // --- ESCENARIO B: Evaluación Numérica (Legacy) ---
                 else {
-                    $finalNote = $studentData['final_score'];
+                    // --- AQUÍ VA TU LÓGICA NORMAL (LO QUE YA TENÍAS) ---
+                    if ($section->course->evaluation_type === 'competency') {
+                        $sum = 0; $count = 0;
+                        foreach ($studentData['competencies'] as $compData) {
+                            if (!empty($compData['grade_scale_id'])) {
+                                Grade::updateOrCreate(
+                                    ['enrollment_detail_id' => $detailId, 'competency_id' => $compData['competency_id']],
+                                    ['grade_scale_id' => $compData['grade_scale_id'], 'registered_by' => $teacherId, 'registered_at' => now()]
+                                );
+                                $sum += $scales[$compData['grade_scale_id']] ?? 0;
+                                $count++;
+                            } else {
+                                Grade::where('enrollment_detail_id', $detailId)->where('competency_id', $compData['competency_id'])->delete();
+                            }
+                        }
+                        if ($count > 0) {
+                            $average = $sum / $count;
+                            $finalNote = $this->calculateVigesimal($average);
+                        }
+                    } else {
+                        $finalNote = $studentData['final_score'];
+                    }
                 }
 
-                // --- ACTUALIZACIÓN GLOBAL EN ENROLLMENT_DETAILS ---
+                // --- ACTUALIZACIÓN FINAL ---
                 if ($finalNote !== null) {
-                    $detail = EnrollmentDetail::findOrFail($detailId);
                     $detail->update([
                         'final_score_numeric' => $finalNote,
                         'status' => $finalNote >= 10.5 ? 'approved' : 'failed'
                     ]);
                 }
             }
-
             return true;
         });
     }
+
+
 
     public function calculateVigesimal($average)
     {
