@@ -15,7 +15,7 @@ import {
 import { dashboard } from '@/routes';
 import { type NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/vue3';
-import { BookOpen, Folder, LayoutGrid, ReceiptText, ClipboardList, FileSearch, School,ClipboardCheck, Users } from 'lucide-vue-next';
+import { BookOpen, Folder, LayoutGrid, ReceiptText, ClipboardList, FileSearch, School,ClipboardCheck, Users, GraduationCap, BookMarked } from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
 
 // Importación de rutas (Asegúrate de que estos archivos existan en tu proyecto)
@@ -110,6 +110,11 @@ const adminNavItems: NavItem[] = [
         href: route('admin.asignaciones-practica.index'),
         icon: ClipboardCheck,
     },
+    {
+        title: 'Grados y Títulos',
+        href: route('admin.thesis.index'),
+        icon: GraduationCap, // O BookMarked
+    },
 ];
 
 const studentNavItems: NavItem[] = [
@@ -121,7 +126,7 @@ const studentNavItems: NavItem[] = [
     {
         title: 'Mi Progreso / Notas', // <--- Añade este
         href: route('student.progress.index'),
-        icon: ClipboardList, 
+        icon: ClipboardList,
     },
     {
         title: 'Mis Pagos / Tesorería', // <-- Añadimos este
@@ -132,6 +137,11 @@ const studentNavItems: NavItem[] = [
         title: 'Matrícula',
         href: '/matricula',
         icon: Folder,
+    },
+    {
+        title: 'Mi Tesis / Grados',
+        href: route('student.thesis.index'), // Esta ruta la creamos en web.php
+        icon: BookMarked,
     },
 ];
 
@@ -160,8 +170,8 @@ const headOfAreaItems: NavItem[] = [
     {
         title: 'Validar Portafolios',
         // Usamos el nombre de la ruta que pusimos en web.php
-        href: route('head_of_area.portfolio.index'), 
-        icon: FileSearch, 
+        href: route('head_of_area.portfolio.index'),
+        icon: FileSearch,
     },
 ];
 
@@ -193,7 +203,7 @@ const mainNavItems = computed(() => {
     }
     if (isHeadOfArea.value || isAdmin.value) {
         items.push(...headOfAreaItems);
-    } 
+    }
 
     return items;
 });

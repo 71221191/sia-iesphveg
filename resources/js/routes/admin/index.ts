@@ -9,8 +9,9 @@ import courses from './courses'
 import course_sections from './course_sections'
 import competencies from './competencies'
 import domains from './domains'
+import thesis from './thesis'
 /**
- * @see routes/web.php:74
+ * @see routes/web.php:86
  * @route '/admin/dashboard'
  */
 export const dashboard = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -24,7 +25,7 @@ dashboard.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
- * @see routes/web.php:74
+ * @see routes/web.php:86
  * @route '/admin/dashboard'
  */
 dashboard.url = (options?: RouteQueryOptions) => {
@@ -32,7 +33,7 @@ dashboard.url = (options?: RouteQueryOptions) => {
 }
 
 /**
- * @see routes/web.php:74
+ * @see routes/web.php:86
  * @route '/admin/dashboard'
  */
 dashboard.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -40,7 +41,7 @@ dashboard.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     method: 'get',
 })
 /**
- * @see routes/web.php:74
+ * @see routes/web.php:86
  * @route '/admin/dashboard'
  */
 dashboard.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -49,7 +50,7 @@ dashboard.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
     /**
- * @see routes/web.php:74
+ * @see routes/web.php:86
  * @route '/admin/dashboard'
  */
     const dashboardForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -58,7 +59,7 @@ dashboard.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     })
 
             /**
- * @see routes/web.php:74
+ * @see routes/web.php:86
  * @route '/admin/dashboard'
  */
         dashboardForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -66,7 +67,7 @@ dashboard.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
             method: 'get',
         })
             /**
- * @see routes/web.php:74
+ * @see routes/web.php:86
  * @route '/admin/dashboard'
  */
         dashboardForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -92,6 +93,7 @@ courses: Object.assign(courses, courses),
 course_sections: Object.assign(course_sections, course_sections),
 competencies: Object.assign(competencies, competencies),
 domains: Object.assign(domains, domains),
+thesis: Object.assign(thesis, thesis),
 }
 
 export default admin

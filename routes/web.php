@@ -32,6 +32,8 @@ use App\Http\Controllers\HeadOfArea\PortfolioValidationController;
 use App\Http\Controllers\Admin\PracticeCenterController;
 use App\Http\Controllers\Admin\PracticeAssignmentController;
 use App\Http\Controllers\Teacher\PracticeEvaluationController;
+use App\Http\Controllers\Student\ThesisController as StudentThesisController;
+use App\Http\Controllers\Admin\ThesisController as AdminThesisController;
 
 // 1. RUTA DE BIENVENIDA (Landing Page)
 
@@ -47,6 +49,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware(['auth', 'role:estudiante'])->prefix('estudiante')->name('student.')->group(function () {
         // Ver notas y asistencias actuales
         Route::get('/mi-progreso', [ProgressController::class, 'index'])->name('progress.index');
+    // Dentro del grupo student.thesis.
+        Route::post('/{project}/documento', [StudentThesisController::class, 'uploadDocument'])->name('upload-document');
+
+        Route::prefix('tesis')->name('thesis.')->group(function () {
+            Route::get('/', [StudentThesisController::class, 'index'])->name('index');
+            Route::get('/registrar', [StudentThesisController::class, 'create'])->name('create');
+            Route::post('/registrar', [StudentThesisController::class, 'store'])->name('store');
+        });
+
+
     });
 
     // --- ZONA ALUMNO (Común) ---
@@ -121,6 +133,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         Route::post('/dominios', [DomainController::class, 'store'])->name('domains.store');
         Route::delete('/dominios/{domain}', [DomainController::class, 'destroy'])->name('domains.destroy');
+
+        Route::prefix('tesis')->name('thesis.')->group(function () {
+            Route::get('/', [AdminThesisController::class, 'index'])->name('index');
+            Route::get('/{project}', [AdminThesisController::class, 'show'])->name('show');
+            Route::patch('/{project}/asesor', [AdminThesisController::class, 'assignAdvisor'])->name('assign-advisor');
+            Route::post('/{project}/jurados', [App\Http\Controllers\Admin\ThesisController::class, 'assignJurors'])
+            ->name('assign-jurors');
+
+            // También agrega de una vez la de sustentación para que no te dé error luego:
+            Route::post('/{project}/sustentacion', [App\Http\Controllers\Admin\ThesisController::class, 'recordDefense'])
+                ->name('record-defense');
+        });
     });
 
     // Solo Tesorería y Admin pueden entrar aquí
@@ -140,10 +164,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->prefix('jefe-area')
         ->name('head_of_area.')
         ->group(function () {
-            
+
             // Dashboard de validación de documentos
             Route::get('/validar-portafolio', [PortfolioValidationController::class, 'index'])->name('portfolio.index');
-            
+
             // Acción de aprobar u observar
             Route::patch('/validar-portafolio/{portfolio}', [PortfolioValidationController::class, 'update'])->name('portfolio.update');
     });
@@ -171,7 +195,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->name('sections.pdf');
 
         Route::get('/mis-practicantes', [PracticeEvaluationController::class, 'index'])->name('practice.index');
-        
+
         Route::post('/mis-practicantes/{assignment}/evaluar', [PracticeEvaluationController::class, 'store'])->name('practice.store');
 
         Route::prefix('asistencia')->name('attendance.')->group(function () {
@@ -191,10 +215,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::prefix('portafolio')->name('portfolio.')->group(function () {
             // 1. Ver los archivos de una sección
             Route::get('/seccion/{section}', [PortfolioController::class, 'index'])->name('index');
-            
+
             // 2. Subir un nuevo archivo
             Route::post('/seccion/{section}/subir', [PortfolioController::class, 'store'])->name('store');
-            
+
             // 3. Eliminar un archivo (solo si está pendiente)
             Route::delete('/archivo/{portfolio}', [PortfolioController::class, 'destroy'])->name('destroy');
         });

@@ -45,4 +45,9 @@ class Person extends Model
     {
         return "{$this->last_name_p} {$this->last_name_m}, {$this->names}";
     }
+    
+    public function thesisProjects()
+    {
+        return $this->belongsToMany(ThesisProject::class, 'thesis_authors', 'student_id', 'thesis_project_id');
+    }
 }
